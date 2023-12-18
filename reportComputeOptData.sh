@@ -15,7 +15,7 @@ aws compute-optimizer get-ec2-instance-recommendations --output json > "${jsonfi
 
 # cat "${jsonfile}"
 ## Pass the json file to the python script along with the CSV File for the output
-python3.7 "${script_top}/reportComputeOptData.py" "${jsonfile}" "${csvfile}"
+python3 "${script_top}/reportComputeOptData.py" "${jsonfile}" "${csvfile}"
 
 
 echo "CSV File generated... - ${csvfile}"
