@@ -1,3 +1,4 @@
+
 import sys
 import json
 import pandas as pd
@@ -35,9 +36,9 @@ if 'instanceRecommendations' in data:
                 metric_value = metric['value']
 
                 # Add new columns with flattened data
-                df.at[i, f'utilizationMetrics_name_{k}'] = metric_name
-                df.at[i, f'utilizationMetrics_statistic_{k}'] = metric_statistic
-                df.at[i, f'utilizationMetrics_value_{k}'] = metric_value
+                df.at[i, 'utilizationMetrics_name_{}'.format(k)] = metric_name
+                df.at[i, 'utilizationMetrics_statistic_{}'.format(k)] = metric_statistic
+                df.at[i, 'utilizationMetrics_value_{}'.format(k)] = metric_value
 
         # Extract and flatten 'recommendationOptions' field
         for i, options in enumerate(df['recommendationOptions']):
@@ -47,9 +48,9 @@ if 'instanceRecommendations' in data:
                 rank = option['rank']
 
                 # Add new columns with flattened data
-                df.at[i, f'recommendationOptions_instanceType_{m}'] = instance_type
-                df.at[i, f'recommendationOptions_performanceRisk_{m}'] = performance_risk
-                df.at[i, f'recommendationOptions_rank_{m}'] = rank
+                df.at[i, 'recommendationOptions_instanceType_{}'.format(m)] = instance_type
+                df.at[i, 'recommendationOptions_performanceRisk_{}'.format(m)] = performance_risk
+                df.at[i, 'recommendationOptions_rank_{}'.format(m)] = rank
 
                 # Flatten 'projectedUtilizationMetrics' within 'recommendationOptions'
                 for j, projected_metric in enumerate(option.get('projectedUtilizationMetrics', [])):
@@ -58,21 +59,20 @@ if 'instanceRecommendations' in data:
                     metric_value = projected_metric.get('value', '')
 
                     # Add new columns with flattened data
-                    df.at[i, f'reco_projectedUtilizationMetrics_{m}_{j}_name'] = metric_name
-                    df.at[i, f'reco_projectedUtilizationMetrics_{m}_{j}_statistic'] = metric_statistic
-                    df.at[i, f'reco_projectedUtilizationMetrics_{m}_{j}_value'] = metric_value
+                    df.at[i, 'reco_projectedUtilizationMetrics_{}_{}_name'.format(m, j)] = metric_name
+                    df.at[i, 'reco_projectedUtilizationMetrics_{}_{}_statistic'.format(m, j)] = metric_statistic
+                    df.at[i, 'reco_projectedUtilizationMetrics_{}_{}_value'.format(m, j)] = metric_value
 
         # Drop original 'utilizationMetrics' and 'recommendationOptions' columns
         df = df.drop(['utilizationMetrics', 'recommendationOptions'], axis=1)
 
         # Write DataFrame to CSV file
         df.to_csv(csvfile, header=True, index=False)
-        print(f"CSV File generated at: {csvfile}")
+       print("CSV File generated at: {}".format(csvfile))
     else:
         print("Error: 'utilizationMetrics' or 'recommendationOptions' columns not found in the DataFrame.")
 else:
     print("Error: 'instanceRecommendations' key not found in the JSON data.")
-
 
 
 
