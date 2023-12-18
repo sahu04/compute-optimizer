@@ -67,7 +67,7 @@ if 'instanceRecommendations' in data:
 
         # Write DataFrame to CSV file
         df.to_csv(csvfile, header=True, index=False)
-       print("CSV File generated at: {}".format(csvfile))
+        print("CSV File generated at: {}".format(csvfile))
     else:
         print("Error: 'utilizationMetrics' or 'recommendationOptions' columns not found in the DataFrame.")
 else:
