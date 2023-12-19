@@ -6,8 +6,8 @@ fi
 NOW=$(date +"%m%d%Y%H%M")
 AccountID=${1}
 AWS_DEFAULT_REGION=${2:-us-east-1}  # Use 'us-east-1' if not provided
-script_top="/c/Users/sahud/OneDrive/Desktop/compute-optimizer/bin"
-outputdir="/c/Users/sahud/OneDrive/Desktop/compute-optimizer/output"
+script_top="$(pwd)/bin"
+outputdir="$(pwd)/output"
 csvfile="${outputdir}/${AccountID}_copt-${NOW}.csv"
 jsonfile="${outputdir}/${AccountID}_copt-${NOW}.json"
 
